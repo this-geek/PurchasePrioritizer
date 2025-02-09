@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import EditPurchaseDialog from "./edit-purchase-dialog";
 
 interface PurchaseListProps {
   purchases: Purchase[];
@@ -106,6 +107,7 @@ export default function PurchaseList({ purchases }: PurchaseListProps) {
                                   <ExternalLink className="h-4 w-4" />
                                 </a>
                               </Button>
+                              <EditPurchaseDialog purchase={purchase} />
                               <Button
                                 variant="ghost"
                                 size="icon"
