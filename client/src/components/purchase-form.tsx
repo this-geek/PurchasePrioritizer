@@ -35,10 +35,13 @@ export default function PurchaseForm() {
 
   const mutation = useMutation({
     mutationFn: async (data: InsertPurchase) => {
-      const res = await apiRequest("POST", "/api/purchases", {
+      // Ensure timeframe is a proper Date object
+      const formattedData = {
         ...data,
         price: Math.round(data.price * 100), // Convert to cents
-      });
+        timeframe: new Date(data.timeframe), // Ensure it's a Date object
+      };
+      const res = await apiRequest("POST", "/api/purchases", formattedData);
       return res.json();
     },
     onSuccess: () => {
@@ -123,7 +126,7 @@ export default function PurchaseForm() {
                   <FormControl>
                     <Button variant="outline" className="w-full pl-3 text-left font-normal">
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(new Date(field.value), "PPP")
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -134,8 +137,8 @@ export default function PurchaseForm() {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
+                    selected={new Date(field.value)}
+                    onSelect={(date) => field.onChange(date)}
                     disabled={(date) =>
                       date < new Date(new Date().setHours(0, 0, 0, 0))
                     }
