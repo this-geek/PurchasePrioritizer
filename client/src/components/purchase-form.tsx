@@ -11,20 +11,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 export default function PurchaseForm() {
   const { toast } = useToast();
+  const { data: purchases = [] } = useQuery<Purchase[]>({
+    queryKey: ["/api/purchases"],
+  });
+
   const form = useForm<InsertPurchase>({
     resolver: zodResolver(insertPurchaseSchema),
     defaultValues: {
       name: "",
       price: 0,
       link: "",
-      order: 0,
+      order: purchases.length, // Set order to current list length
     },
   });
 
