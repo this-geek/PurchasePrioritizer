@@ -2,7 +2,6 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2, GripVertical, ExternalLink } from "lucide-react";
-import { format } from "date-fns";
 import type { Purchase } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -117,9 +116,6 @@ export default function PurchaseList({ purchases }: PurchaseListProps) {
                               </Button>
                             </div>
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            Target: {format(new Date(purchase.timeframe), "PPP")}
-                          </p>
                         </div>
                       </div>
                     </Card>
