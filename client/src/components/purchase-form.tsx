@@ -28,7 +28,7 @@ export default function PurchaseForm() {
       name: "",
       price: 0,
       link: "",
-      order: purchases.length, // Set order to current list length
+      order: purchases.length,
     },
   });
 
@@ -37,6 +37,7 @@ export default function PurchaseForm() {
       const formattedData = {
         ...data,
         price: Math.round(data.price * 100), // Convert to cents
+        link: data.link || null, // Handle empty link
       };
       const res = await apiRequest("POST", "/api/purchases", formattedData);
       return res.json();
@@ -103,7 +104,7 @@ export default function PurchaseForm() {
           name="link"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link</FormLabel>
+              <FormLabel>Link (Optional)</FormLabel>
               <FormControl>
                 <Input placeholder="https://..." {...field} />
               </FormControl>

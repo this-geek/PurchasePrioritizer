@@ -6,14 +6,14 @@ export const purchases = pgTable("purchases", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   price: integer("price").notNull(), // Store price in cents
-  link: text("link").notNull(),
+  link: text("link"),  // Removed .notNull()
   order: integer("order").notNull(),
 });
 
 export const insertPurchaseSchema = createInsertSchema(purchases)
   .omit({ id: true })
   .extend({
-    link: z.string().url("Please enter a valid URL"),
+    link: z.string().url("Please enter a valid URL").optional(),
     price: z.number().min(0, "Price must be positive"),
   });
 

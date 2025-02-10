@@ -94,19 +94,21 @@ export default function PurchaseList({ purchases }: PurchaseListProps) {
                               <span className="font-medium">
                                 ${(purchase.price / 100).toFixed(2)}
                               </span>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                asChild
-                              >
-                                <a
-                                  href={purchase.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
+                              {purchase.link && (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  asChild
                                 >
-                                  <ExternalLink className="h-4 w-4" />
-                                </a>
-                              </Button>
+                                  <a
+                                    href={purchase.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <ExternalLink className="h-4 w-4" />
+                                  </a>
+                                </Button>
+                              )}
                               <EditPurchaseDialog purchase={purchase} />
                               <Button
                                 variant="ghost"
